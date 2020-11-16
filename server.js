@@ -1,4 +1,4 @@
-/*global __dirname*/
+/*global __dirname */
 require('dotenv').config();
 
 const express = require("express");
@@ -29,4 +29,4 @@ app.use('/users', usersRouter);
 
 app.listen(PORT, () => {
 	console.log(`app listening on https://localhost:${PORT}`);
-})
+});

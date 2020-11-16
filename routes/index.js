@@ -1,8 +1,11 @@
+/* global __dirname*/
 const express = require('express');
 const router = express.Router();
+const path = require("path");
 
 router.get('/', (request, response) => {
-    response.send("Hello world");
+    response.sendFile(path.join( __dirname, "../public/index.html"));
 });
+
 
 module.exports = router;
