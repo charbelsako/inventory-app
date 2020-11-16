@@ -1,0 +1,25 @@
+{
+  "name": "inventory_app",
+  "version": "1.0.0",
+  "description": "App that keeps track of any items you have",
+  "main": "server.js",
+  "repository": "https://github.com/charbelsako/inventory-app",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.js"
+  },
+  "author": "Charbel Sarkis",
+  "license": "MIT",
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "nodemon": "^2.0.6",
+    "pg": "^8.5.1",
+    "prettier": "^2.1.2"
+  },
+  "devDependencies": {
+    "eslint": "^7.13.0",
+    "eslint-config-prettier": "^6.15.0",
+    "eslint-plugin-prettier": "^3.1.4"
+  }
+}
