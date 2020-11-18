@@ -1,0 +1,4 @@
+[*] figure out how to make a layout file *PROPERLY*
+[*] Get the categories and put them in a list
+[ ] Use express validator to validate data sent in /item/add.
+[ ] Add a way to edit and delete item records.

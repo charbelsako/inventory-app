@@ -1,0 +1,27 @@
+extends layout.pug
+
+block body
+    h1 Hello from add item
+    form(action="/item/add", method="post").text-center
+      div.p-1
+        label(for="name") Name:
+        input(type="text", name="name", placeholder="item name")
+      div.p-1
+        label(for="price") Price:
+        input(type="number", name="price", placeholder="price")
+      div.p-1
+        label(for="quantity") Quantity:
+        input(type="number", name="quantity", placeholder="Quantity")
+      div.p-1
+        label(for="expiry_date") Expiry Date:
+        input(type="date", name="expiry_date")
+      div.p-1
+        label(for="Category") Category
+        select(name="category")
+          each category in categories
+            option(value=category.id) #{category.name}
+      div.p-1
+        label(for="for_sale") For Sale:
+          input(type="checkbox", name="for_sale")
+      div.p-1
+        input(type="submit", value="Add Item").btn.btn-success

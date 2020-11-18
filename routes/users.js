@@ -1,8 +1,9 @@
 const express = require("express");
 const router = express.Router();
 
-router.get('/', (request, response) => {
-    response.send("hello from users") 
+router.get('/:name', (request, response) => {
+    const options = {name: request.params.name}
+    response.render("users.pug", options) 
 });
 
 module.exports = router;

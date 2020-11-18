@@ -1,0 +1,24 @@
+extends layout.pug
+
+block body
+	h1 Welcome to Express.js + Pug
+	table.table-dark.table-bordered.mx-auto
+		tr
+				td Id
+				td Name
+				td Date Added
+				td Price
+				td Quantity
+				td Category
+				td
+		each item in items
+			tr
+				td #{item.id}
+				td #{item.name}
+				td #{item.date_added}
+				td #{item.price}
+				td #{item.quantity}
+				td #{item.categoryname}
+				td
+					if item.for_sale
+						button(type="button", class="btn btn-success") Add to cart
