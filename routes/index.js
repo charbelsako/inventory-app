@@ -14,7 +14,7 @@ router.get('/', async (request, response) => {
         items
     }
 
-    response.status(200).render("index", data);
+    return response.status(200).render("index", data);
 });
 
 

@@ -4,11 +4,10 @@ require('dotenv').config();
 const express = require("express");
 const app = express();
 const path = require("path");
-const bodyParser = require("body-parser");
 
 //middleware
-app.use(bodyParser.json())
-app.use(bodyParser.urlencoded())
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
 
 const PORT = 3000;
 
@@ -20,7 +19,7 @@ app.use('/static', express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.use('/item', itemRouter)
+app.use('/item', itemRouter);
 
 app.set('views', './views');
 app.set('view engine', 'pug');

@@ -10,7 +10,7 @@ router.get('/', async (request, response) => {
     categories
   }
 
-  response.render("additem", data)
+  return response.render("additem", data)
 });
 
 // Add a new item
@@ -23,9 +23,31 @@ router.post('/add', async (request, response) => {
   const for_sale = request.body.for_sale == "on" ? true : false;
   console.log(request.body)
   // Add the value to the database
-  const result = await databaseInstance.insert(`INSERT INTO items (name, price, expiry_date, category, for_sale, quantity) VALUES ('${name}', ${price}, ${expiry_date}, ${category}, ${for_sale}, ${quantity})`)
+  try {
+    const insertItemQuery = `INSERT INTO items (name, price, expiry_date, category, for_sale, quantity) VALUES ('${name}', ${price}, ${expiry_date}, ${category}, ${for_sale}, ${quantity})`
 
-  response.redirect('/')
+    await databaseInstance.insert(insertItemQuery)
+
+    return response.redirect('/')
+  } catch (e) {
+    console.log(e.message);
+  }
+
 });
+
+// Delete an item
+router.delete('/delete/:id', async (request, response) => {
+  const id = request.params.id;
+  try{
+    const deleteQuery = `DELETE FROM items WHERE id = ${id}`;
+
+    await databaseInstance.query(deleteQuery);
+
+    return response.send("Item deleted successfully");
+  } catch(e) {
+    console.log(e)
+    return response.send(e.message);
+  }
+})
 
 module.exports = router;
