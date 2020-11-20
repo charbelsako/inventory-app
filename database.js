@@ -10,7 +10,17 @@ const Database = class {
   async query(sql) {
     try {
       const res = await this.client.query(sql)
+      // console.log(res);
       return res.rows;
+    } catch (e) {
+      console.error(e.stack)
+    }
+  }
+
+  async queryOne(sql) {
+    try {
+      const res = await this.client.query(sql)
+      return res.rows[0];
     } catch (e) {
       console.error(e.stack)
     }
@@ -26,6 +36,15 @@ const Database = class {
     }
   }
 
+  async update(sql) {
+    try {
+      await this.client.query(sql)
+      return true;
+    } catch (e) {
+      console.error(e.stack)
+      return false;
+    }
+  }
 }
 
 module.exports = Database;

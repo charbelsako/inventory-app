@@ -15,7 +15,11 @@ const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const itemRouter = require('./routes/items');
 
+const apiRouter = require('./routes/api');
+
 app.use('/static', express.static(path.join(__dirname, 'public')));
+
+app.use('/api/v1', apiRouter);
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);

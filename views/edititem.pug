@@ -1,0 +1,35 @@
+extends layout.pug
+
+block scripts
+  script(src="/static/js/updateItem.js")
+
+block body
+    h1 Hello from add item
+    form(id="updateForm").text-center
+      div.p-1
+        label(for="name") Name:
+        input(type="text", id="name", placeholder="item name", value=`${item.name}`)
+      div.p-1
+        label(for="price") Price:
+        input(type="number", id="price", placeholder="price", value=`${item.price}`)
+      div.p-1
+        label(for="quantity") Quantity:
+        input(type="number", id="quantity", placeholder="Quantity", value=`${item.quantity}`)
+      div.p-1
+        label(for="expiry_date") Expiry Date:
+        input(type="date", id="expiry_date", value=`${expiry_date}`)
+      div.p-1
+        label(for="Category") Category
+        select(id="category")
+          option(value=item.categoryid) #{item.categoryname}
+          each category in categories
+            if category.name != 'electronics'
+              option(value=category.id) #{category.name}
+      div.p-1
+        label(for="for_sale") For Sale:
+          if item.for_sale
+            input(type="checkbox", id="for_sale", checked=`${item.for_sale}`)
+          else
+            input(type="checkbox", id="for_sale")
+      div.p-1
+        button(type="button", onclick=`updateItem(${item.id})`).btn.btn-info Update Item
