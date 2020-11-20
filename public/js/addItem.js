@@ -1,7 +1,6 @@
 /* global $ */
 // eslint-disable-next-line no-unused-vars
-function updateItem(id) {
-
+function addItem() {
   const name = $('#name').val()
   const price = $('#price').val()
   const quantity = $('#quantity').val()
@@ -10,13 +9,19 @@ function updateItem(id) {
   const category = $('#category').val()
 
   $.ajax({
-    dataType: 'text',
-    url: `/api/v1/item/edit/${id}`,
-    type: 'PUT',
+    dataType: 'json',
+    url: `/api/v1/item/add/`,
+    type: 'POST',
     data: {name, price, quantity, expiry_date, for_sale, category},
     // eslint-disable-next-line no-unused-vars
     success: function(result) {
-      console.log("whatever");
+      console.log(result)
+      if (result.error){
+        // set the error
+        $('#error').css('display', 'block')
+        $('#error').text("couldn't add item. You probably have a missing field")
+        return alert("couldn't add item. You probably have a missing field")
+      }
       location.href = "/"
     },
 });

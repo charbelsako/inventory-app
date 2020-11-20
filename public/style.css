@@ -9,3 +9,7 @@ table {
 label {
   margin: 10px;
 }
+
+.none {
+  display: none;
+}

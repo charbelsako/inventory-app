@@ -10,7 +10,9 @@ const Database = class {
   async query(sql) {
     try {
       const res = await this.client.query(sql)
-      // console.log(res);
+      if (res.rowCount == 0) {
+        return {error: "couldn't find that item"}
+      }
       return res.rows;
     } catch (e) {
       console.error(e.stack)
@@ -20,6 +22,9 @@ const Database = class {
   async queryOne(sql) {
     try {
       const res = await this.client.query(sql)
+      if (res.rowCount == 0) {
+        return {error: "couldn't find that item"}
+      }
       return res.rows[0];
     } catch (e) {
       console.error(e.stack)

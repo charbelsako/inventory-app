@@ -9,8 +9,6 @@ router.get('/', async (request, response) => {
     //* Query the database
     let items = await databaseInstance.query("SELECT items.id, items.quantity, items.name, items.price, items.date_added, items.for_sale, items.price, items.expiry_date, categories.name categoryName from items JOIN categories ON items.category = categories.id;");
 
-    // console.log(items)
-
     const data = {
         items
     }
@@ -22,7 +20,11 @@ router.get('/', async (request, response) => {
 router.get('/:id', async (request, response) => {
   const id = request.params.id;
   //* Query the database
-  let item = await databaseInstance.queryOne("SELECT items.id, items.quantity, items.name, items.price, items.date_added, items.for_sale, items.price, items.expiry_date, categories.name categoryName from items JOIN categories ON items.category = categories.id; WHERE id="+id);
+  let item = await databaseInstance.queryOne("SELECT items.id, items.quantity, items.name, items.price, items.date_added, items.for_sale, items.price, items.expiry_date, categories.id as categoryid, categories.name categoryName from items JOIN categories ON items.category = categories.id WHERE items.id="+id);
+
+  if (item.error) {
+    return response.send(item)
+  }
 
   const data = {
       item
@@ -42,7 +44,7 @@ router.delete('/delete/:id', async (request, response) => {
     return response.send("Item deleted successfully");
   } catch(e) {
     console.log(e)
-    return response.send(e.message);
+    return response.send({error: "Couldn't delete item"});
   }
 })
 
@@ -59,11 +61,17 @@ router.post('/add', async (request, response) => {
   try {
     const insertItemQuery = `INSERT INTO items (name, price, expiry_date, category, for_sale, quantity) VALUES ('${name}', ${price}, ${expiry_date}, ${category}, ${for_sale}, ${quantity})`
 
-    await databaseInstance.insert(insertItemQuery)
+    const result = await databaseInstance.insert(insertItemQuery)
 
-    return response.redirect('/')
+    if (!result) {
+      return response.send({error: "Item couldn't be added"});
+    }
+    console.log(result)
+
+    return response.status(200).send({text: "Item added successfully"})
   } catch (e) {
     console.log(e.message);
+    return response.status(404).send({error: "Item couldn't be added"})
   }
 
 });
@@ -87,6 +95,7 @@ router.put('/edit/:id', async (request, response) => {
     return response.send(result);
   } catch (e) {
     console.log(e.message);
+    return response.send({error: "Couldn't edit item"})
   }
 
 

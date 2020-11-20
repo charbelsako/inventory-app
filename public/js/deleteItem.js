@@ -3,7 +3,7 @@
 function deleteItem(id) {
   $.ajax({
     dataType: 'text',
-    url: `/item/delete/${id}`,
+    url: `/api/v1/item/delete/${id}`,
     type: 'DELETE',
     // eslint-disable-next-line no-unused-vars
     success: function(result) {

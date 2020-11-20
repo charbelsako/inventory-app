@@ -17,6 +17,7 @@ router.get('/', async (request, response) => {
     return response.status(200).render("index", data);
 });
 
+// Path: website/edit/:id
 router.get('/edit/:id', async (request, response)=>{
   const id = request.params.id;
   try{

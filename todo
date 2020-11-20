@@ -9,3 +9,5 @@
 
 [ ] Change your api to start to use /api for adding and getting from the database and use / to GET
 the data by requesting the api.
+
+[ ] handle errors

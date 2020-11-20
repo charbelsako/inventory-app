@@ -1,27 +1,31 @@
 extends layout.pug
 
+block scripts
+  script(src="/static/js/addItem.js")
+
 block body
     h1 Hello from add item
-    form(action="/item/add", method="post").text-center
+    p(id="error").w-50.mx-auto.alert.alert-danger.none
+    form(id="addItemForm").text-center
       div.p-1
         label(for="name") Name:
-        input(type="text", name="name", placeholder="item name")
+        input(type="text", id="name", placeholder="item name")
       div.p-1
         label(for="price") Price:
-        input(type="number", name="price", placeholder="price")
+        input(type="number", id="price", placeholder="price")
       div.p-1
         label(for="quantity") Quantity:
-        input(type="number", name="quantity", placeholder="Quantity")
+        input(type="number", id="quantity", placeholder="Quantity")
       div.p-1
         label(for="expiry_date") Expiry Date:
-        input(type="date", name="expiry_date")
+        input(type="date", id="expiry_date")
       div.p-1
         label(for="Category") Category
-        select(name="category")
+        select(id="category")
           each category in categories
             option(value=category.id) #{category.name}
       div.p-1
         label(for="for_sale") For Sale:
-          input(type="checkbox", name="for_sale")
+          input(type="checkbox", id="for_sale")
       div.p-1
-        input(type="submit", value="Add Item").btn.btn-success
+        button(type="button", onclick=`addItem()`).btn.btn-success Add Item
