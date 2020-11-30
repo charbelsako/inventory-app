@@ -4,6 +4,7 @@ block scripts
 
 block body
 	h1 Welcome to Express.js + Pug
+
 	table.table-dark.table-bordered.mx-auto
 		tr
 				td Id
@@ -13,16 +14,19 @@ block body
 				td Quantity
 				td Category
 				td
-		each item in items
-			tr
-				td #{item.id}
-				td #{item.name}
-				//- td #{item.date_added}
-				td #{item.price}
-				td #{item.quantity}
-				td #{item.categoryname}
-				td
-					if item.for_sale
-						button(type="button", class="btn btn-success m-2") Add to cart
-					a(type="button", class="btn btn-danger m-2", onclick=`deleteItem(${item.id})`) Delete
-					a(href=`/item/edit/${item.id}`, type="button", class="btn btn-info m-2") Edit
+		if items.error
+			p.alert.alert-danger #{items.error}
+		else
+			each item in items
+				tr
+					td #{item.id}
+					td #{item.name}
+					//- td #{item.date_added}
+					td #{item.price}
+					td #{item.quantity}
+					td #{item.categoryname}
+					td
+						if item.for_sale
+							button(type="button", class="btn btn-success m-2") Add to cart
+						a(type="button", class="btn btn-danger m-2", onclick=`deleteItem(${item.id})`) Delete
+						a(href=`/item/edit/${item.id}`, type="button", class="btn btn-info m-2") Edit

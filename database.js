@@ -11,7 +11,19 @@ const Database = class {
     try {
       const res = await this.client.query(sql)
       if (res.rowCount == 0) {
-        return {error: "couldn't find that item"}
+        return {error: "No items to show"}
+      }
+      return res.rows;
+    } catch (e) {
+      console.error(e.stack)
+    }
+  }
+
+  async queryWithValues(sql, values) {
+    try {
+      const res = await this.client.query(sql, values)
+      if (res.rowCount == 0) {
+        return {error: "No items to show"}
       }
       return res.rows;
     } catch (e) {
@@ -23,7 +35,7 @@ const Database = class {
     try {
       const res = await this.client.query(sql)
       if (res.rowCount == 0) {
-        return {error: "couldn't find that item"}
+        return {error: "No Items to show"}
       }
       return res.rows[0];
     } catch (e) {
@@ -34,6 +46,16 @@ const Database = class {
   async insert(sql) {
     try {
       await this.client.query(sql)
+      return true;
+    } catch (e) {
+      console.error(e.stack)
+      return false;
+    }
+  }
+
+  async insertWithValues(sql, values) {
+    try {
+      await this.queryWithValues(sql, values)
       return true;
     } catch (e) {
       console.error(e.stack)

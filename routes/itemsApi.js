@@ -7,7 +7,7 @@ const databaseInstance = new database("pg");
 // Get all items
 router.get('/', async (request, response) => {
     //* Query the database
-    let items = await databaseInstance.query("SELECT items.id, items.quantity, items.name, items.price, items.date_added, items.for_sale, items.price, items.expiry_date, categories.name categoryName from items JOIN categories ON items.category = categories.id;");
+    let items = await databaseInstance.query("SELECT * FROM itemsView");
 
     const data = {
         items
@@ -22,6 +22,7 @@ router.get('/:id', async (request, response) => {
   //* Query the database
   let item = await databaseInstance.queryOne("SELECT items.id, items.quantity, items.name, items.price, items.date_added, items.for_sale, items.price, items.expiry_date, categories.id as categoryid, categories.name categoryName from items JOIN categories ON items.category = categories.id WHERE items.id="+id);
 
+  console.log(item)
   if (item.error) {
     return response.send(item)
   }
@@ -54,14 +55,18 @@ router.post('/add', async (request, response) => {
   const price = request.body.price;
   const expiry_date = request.body.expiry_date || null;
   const category = request.body.category;
-  const quantity = request.body.quantity
+  const quantity = request.body.quantity;
   const for_sale = request.body.for_sale == "on" ? true : false;
-  console.log(request.body)
+  console.log(request.body);
   // Add the value to the database
   try {
-    const insertItemQuery = `INSERT INTO items (name, price, expiry_date, category, for_sale, quantity) VALUES ('${name}', ${price}, ${expiry_date}, ${category}, ${for_sale}, ${quantity})`
+    let insertItemQuery;
+    //insertItemQuery = `SELECT insert_item (${name}, ${price}, date ${expiry_date}, ${category}, ${for_sale}, ${quantity})`
+    insertItemQuery = 'SELECT insert_item($1, $2, $3, $4, $5, $6)'
 
-    const result = await databaseInstance.insert(insertItemQuery)
+    const values = [name, price, expiry_date, category, for_sale, quantity];
+
+    const result = await databaseInstance.insertWithValues(insertItemQuery, values)
 
     if (!result) {
       return response.send({error: "Item couldn't be added"});
@@ -82,13 +87,13 @@ router.put('/edit/:id', async (request, response) => {
   const price = request.body.price;
   const expiry_date = request.body.expiry_date || null;
   const category = request.body.category;
-  const quantity = request.body.quantity
+  const quantity = request.body.quantity;
   const for_sale = request.body.for_sale == "on" ? true : false;
   console.log(request.body);
   console.log(request.body.name);
   // Add the value to the database
   try {
-    const updateItemQuery = `UPDATE items SET name='${name}', price=${price}, expiry_date=${expiry_date}, category=${category}, for_sale=${for_sale}, quantity=${quantity} WHERE id=${id}`;
+    const updateItemQuery = `UPDATE items SET name=${name}, price=${price}, expiry_date=${expiry_date}, category=${category}, for_sale=${for_sale}, quantity=${quantity} WHERE id=${id}`;
 
     const result = await databaseInstance.update(updateItemQuery);
 
@@ -97,8 +102,6 @@ router.put('/edit/:id', async (request, response) => {
     console.log(e.message);
     return response.send({error: "Couldn't edit item"})
   }
-
-
 });
 
 module.exports = router;

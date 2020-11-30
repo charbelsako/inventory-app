@@ -1,13 +1,21 @@
 [*] figure out how to make a layout file *PROPERLY*
 [*] Get the categories and put them in a list
-[ ] Use express validator to validate data sent in /item/add.
-[ ] Add a way to edit records
+[ ] Use express validator to validate data sent too all apis.
+[*] Add a way to edit records
 [ ] Add the cart
 [ ] Make the add to cart button work
 [ ] Write a procedure or function to handle checkout
 [ ] Write a trigger when the price is changed to handle a price history table
+[ ] Add a users table??
+[ ] Add an item view to view single items with their price history
 
-[ ] Change your api to start to use /api for adding and getting from the database and use / to GET
+[*] Change your api to start to use /api for adding and getting from the database and use / to GET
 the data by requesting the api.
 
-[ ] handle errors
+[ ] handle errors (express validator)
+
+[ ] Make views/procedures for your long queries WIP
+  [ ] - fix error of single quotes
+
+convert date to utc
+check node-postgres documentation for function to handle parameters

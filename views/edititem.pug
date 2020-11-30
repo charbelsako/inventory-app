@@ -20,7 +20,7 @@ block body
           input(type="number", id="quantity", placeholder="Quantity", value=`${item.quantity}`)
         div.p-1
           label(for="expiry_date") Expiry Date:
-          input(type="date", id="expiry_date", value=`${expiry_date}`)
+          input(type="date", id="expiry_date", value=`${new Date(item.expiry_date).toLocaleDateString('en-CA')}`)
         div.p-1
           label(for="Category") Category
           select(id="category")
