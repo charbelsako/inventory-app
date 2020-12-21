@@ -72,6 +72,16 @@ const Database = class {
       return false;
     }
   }
+
+  async updateWithValues(sql, values) {
+    try {
+      await this.queryWithValues(sql, values)
+      return true;
+    } catch (e) {
+      console.error(e.stack)
+      return false;
+    }
+  }
 }
 
 module.exports = Database;

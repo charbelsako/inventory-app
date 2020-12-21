@@ -64,9 +64,9 @@ router.post('/add', async (request, response) => {
     //insertItemQuery = `SELECT insert_item (${name}, ${price}, date ${expiry_date}, ${category}, ${for_sale}, ${quantity})`
     insertItemQuery = 'SELECT insert_item($1, $2, $3, $4, $5, $6)'
 
-    const values = [name, price, expiry_date, category, for_sale, quantity];
+    const valuesList = [name, price, expiry_date, category, for_sale, quantity];
 
-    const result = await databaseInstance.insertWithValues(insertItemQuery, values)
+    const result = await databaseInstance.insertWithValues(insertItemQuery, valuesList)
 
     if (!result) {
       return response.send({error: "Item couldn't be added"});
@@ -88,14 +88,17 @@ router.put('/edit/:id', async (request, response) => {
   const expiry_date = request.body.expiry_date || null;
   const category = request.body.category;
   const quantity = request.body.quantity;
-  const for_sale = request.body.for_sale == "on" ? true : false;
+  const for_sale = request.body.for_sale;
   console.log(request.body);
   console.log(request.body.name);
   // Add the value to the database
   try {
-    const updateItemQuery = `UPDATE items SET name=${name}, price=${price}, expiry_date=${expiry_date}, category=${category}, for_sale=${for_sale}, quantity=${quantity} WHERE id=${id}`;
+    const updateItemQuery = `UPDATE items SET name=$1, price=$2, expiry_date=$3, category=$4, for_sale=$5, quantity=$6 WHERE id=$7`;
 
-    const result = await databaseInstance.update(updateItemQuery);
+    const valuesList = [name, price, expiry_date, category, for_sale, quantity, id];
+
+
+    const result = await databaseInstance.updateWithValues(updateItemQuery, valuesList);
 
     return response.send(result);
   } catch (e) {

@@ -7,6 +7,7 @@ function updateItem(id) {
   const quantity = $('#quantity').val()
   const expiry_date = $('#expiry_date').val()
   const for_sale = $('#for_sale').is(":checked")
+  console.log(for_sale)
   const category = $('#category').val()
 
   $.ajax({

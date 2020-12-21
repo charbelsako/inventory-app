@@ -1,6 +1,7 @@
 extends layout.pug
 block scripts
 	script(src="static/js/deleteItem.js")
+	script(src="static/js/addToCart.js")
 
 block body
 	h1 Welcome to Express.js + Pug
@@ -27,6 +28,6 @@ block body
 					td #{item.categoryname}
 					td
 						if item.for_sale
-							button(type="button", class="btn btn-success m-2") Add to cart
+							button(type="button", class="btn btn-success m-2", onclick=`addToCart(${item.id})`) Add to cart
 						a(type="button", class="btn btn-danger m-2", onclick=`deleteItem(${item.id})`) Delete
 						a(href=`/item/edit/${item.id}`, type="button", class="btn btn-info m-2") Edit

@@ -1,0 +1,16 @@
+extends layout.pug
+
+block body
+  h1 hello from cart
+  table.table-dark.table-bordered.mx-auto
+    tr
+      td name
+      td price
+      td quantity
+    for item in data
+      tr
+        td #{item.name}
+        td #{item.price}
+        td #{item.quantity}
+        td
+          button(type="button", class="btn btn-danger") Delete From Cart

@@ -2,12 +2,17 @@
 [*] Get the categories and put them in a list
 [ ] Use express validator to validate data sent too all apis.
 [*] Add a way to edit records
-[ ] Add the cart
+[*] Add the cart (Without users for now)
 [ ] Make the add to cart button work
 [ ] Write a procedure or function to handle checkout
-[ ] Write a trigger when the price is changed to handle a price history table
+[*] Write a trigger when the price is changed to handle a price history table
 [ ] Add a users table??
 [ ] Add an item view to view single items with their price history
+
+### Needed for project deployment
+
+[ ] The cart should display the appropriate number of items no the quantity. Should be easy with group by.
+[ ] Add the total of the cart. Again, should be easy with the sum function.
 
 [*] Change your api to start to use /api for adding and getting from the database and use / to GET
 the data by requesting the api.
@@ -15,7 +20,9 @@ the data by requesting the api.
 [ ] handle errors (express validator)
 
 [ ] Make views/procedures for your long queries WIP
-  [ ] - fix error of single quotes
+  [*] - fix error of single quotes
 
-convert date to utc
-check node-postgres documentation for function to handle parameters
+convert date to utc (I don't think I have to..)
+[*] check node-postgres documentation for function to handle parameters (check queryWithValues function)
+
+[ ] add a trigger that changes the for_sale attribute to false when the quantity hits zero

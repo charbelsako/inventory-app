@@ -6,14 +6,16 @@ const app = express();
 const path = require("path");
 
 //middleware
-app.use(express.json())
-app.use(express.urlencoded({ extended: true }))
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 const PORT = 3000;
 
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const itemRouter = require('./routes/items');
+const cartRouter = require('./routes/cart');
+
 
 const apiRouter = require('./routes/api');
 
@@ -24,6 +26,7 @@ app.use('/api/v1', apiRouter);
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/item', itemRouter);
+app.use('/cart', cartRouter);
 
 app.set('views', './views');
 app.set('view engine', 'pug');
